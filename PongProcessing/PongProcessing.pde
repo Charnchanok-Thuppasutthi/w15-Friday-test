@@ -13,7 +13,7 @@ void draw() {
 
 class Game {
   Player left_player = new Player( 0, height/2-(height/8) );
-  Player right_player = new Player( width-(width/13), height/2-(height/8) );
+  Player right_player = new Player( width-(width/14), height/2-(height/8) );
 
   Ball ball = new Ball(width/2, height/2, random(-3, 3), random(-3, 3));
 
@@ -22,17 +22,29 @@ class Game {
 
   void update_game() { 
     ball.move();
-    //ball.print_xy();
     if ( (ball.getterX() < 0) || (ball.getterX() > width) ) {
-      ball.setter_spdX();
-      println("stuck1");
+      ball.setter_spdX();  
+      println("point!");
     }
 
     if ( (ball.getterY() < 0) || (ball.getterY() > height) ) {
       ball.setter_spdY();
       println("stuck2");
     }
-
+    
+    if(key == 'w'){
+      println("up1");
+    }
+    if(key == 's'){
+      println("down1");
+    }
+    if(key == UP){
+      println("up2");
+    }
+    if(key == DOWN){
+      println("down2");
+    }
+    
     left_player.draw_racket();
     right_player.draw_racket();
   }
@@ -81,11 +93,6 @@ class Ball {
   void setter_spdY() {
     spdY *= -1 ;
   }
-
-  void print_xy() {
-    println(getterY());
-    println(getterX());
-  }
 }
 
 class Player {
@@ -97,8 +104,11 @@ class Player {
     x = x_position ;
     y = y_position ;
   }
+  
   void draw_racket() {
     fill(255);
     rect(x, y, 50, 100);
   }
+  
+  
 }
