@@ -14,8 +14,8 @@ void draw() {
 class Game {
   Player left_player = new Player( 0, height/2-(height/8) );
   Player right_player = new Player( width-(width/13), height/2-(height/8) );
-  
-  Ball ball = new Ball(width/2, height/2, random(2, 3));
+
+  Ball ball = new Ball(width/2, height/2, random(-3, 3), random(-3, 3));
 
   void start_game() {
   }
@@ -32,10 +32,9 @@ class Game {
       ball.setter_spdY();
       println("stuck2");
     }
-    
+
     left_player.draw_racket();
     right_player.draw_racket();
-    
   }
 
   void board() {
@@ -51,19 +50,20 @@ class Game {
 class Ball {
 
   float x, y ; 
-  float spd ;
+  float spdX,spdY ;
 
-  Ball(float x_position, float y_position, float speed) {
+  Ball(float x_position, float y_position, float speedX, float speedY) {
     x = x_position ;
     y = y_position ;
-    spd = speed ;
+    spdX = speedX ;
+    spdY = speedY ;
   }
 
   void move() {
     background(0);
     fill(255);
-    x += spd ;
-    y += spd ;
+    x += spdX ;
+    y += spdY ;
     circle(x, y, 80 );
   }
 
@@ -76,10 +76,10 @@ class Ball {
   }
 
   void setter_spdX() {
-    spd *= -1 ;
+    spdX *= -1 ;
   }
   void setter_spdY() {
-    spd *= -1 ;
+    spdY *= -1 ;
   }
 
   void print_xy() {
@@ -91,7 +91,7 @@ class Ball {
 class Player {
 
   int score ;
-  float x ,y ;
+  float x, y ;
 
   Player(float x_position, float y_position) {
     x = x_position ;
