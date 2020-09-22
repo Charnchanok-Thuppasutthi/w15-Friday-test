@@ -1,0 +1,23 @@
+commit 6f9ce8889b3ff278ed387fe2a383223ad3754b8e
+Author: Charnchanok Thuppasutthi <s6201012620058@email.kmutnb.ac.th>
+Date:   Tue Sep 22 14:47:35 2020 +0700
+
+    try to input from keyboard
+
+commit 0d81ec87b965557f29203c6b7dcd2ce2c57a917e
+Author: Charnchanok Thuppasutthi <s6201012620058@email.kmutnb.ac.th>
+Date:   Tue Sep 22 14:37:37 2020 +0700
+
+    improve speed to speedX and speedY
+
+commit 19525789d32241a293f208195b0f55818af7d28a
+Author: Charnchanok Thuppasutthi <s6201012620058@email.kmutnb.ac.th>
+Date:   Tue Sep 22 14:25:45 2020 +0700
+
+    add racket model
+
+commit 872ec59902813a5b79f9f93facc4f5a7ab278c44
+Author: Charnchanok Thuppasutthi <s6201012620058@email.kmutnb.ac.th>
+Date:   Tue Sep 22 13:58:03 2020 +0700
+
+    Class design
