@@ -1,4 +1,3 @@
-
 Game pong;
 void setup() {
   size(700, 500);
@@ -10,49 +9,47 @@ void draw() {
   pong.board();
 }
 
-
-
 class Game {
   Player left_player = new Player( 0, height/2-(height/8) );
   Player right_player = new Player( width-(width/14), height/2-(height/8) );
 
   Ball ball = new Ball(width/2, height/2);
 
-  void start_game() {
+  void serve_ball() {
     ball.setter_X();
     ball.setter_Y();
-    ball.move();
+    ball.setter_spdX();
+    delay(1000);
   }
 
   void update_game() { 
     ball.move();
-    
-    left_player.draw_racket();
-    right_player.draw_racket();
-    
-    if ( (ball.getterX() == left_player.getterX() ) || (ball.getterX() == right_player.getterX() ) ) {
-      moveracket();
+    moveracket();
+
+    if ( (ball.getterX() <= left_player.getterX()+50 ) && (( ball.getterY()+ ball.getter_size()/2 > left_player.getterY() ) && ( ball.getterY() - ball.getter_size()/2 < left_player.getterY()+100) )) {
       ball.setter_spdX();
+      ball.plus_speed() ;
     }
 
+    if ( (ball.getterX() >= right_player.getterX() ) && (( ball.getterY()+ ball.getter_size()/2 > right_player.getterY() ) && ( ball.getterY() - ball.getter_size()/2 < right_player.getterY()+100) )) {
+      ball.setter_spdX();
+      ball.plus_speed() ;
+    } 
 
     if ( (ball.getterX()- ball.getter_size()/2 < -100) || (ball.getterX()+ ball.getter_size()/2  > width+100) ) {
       if ( (ball.getterX()<width/2 ) ) {
-        left_player.setter_score();
-        start_game();
+        right_player.setter_score();
+        serve_ball();
       }
       if ( (ball.getterX() > width/2 ) ) {
-        right_player.setter_score();
-        start_game();
+        left_player.setter_score();
+        serve_ball();
       }
     }
-
 
     if ( (ball.getterY()- ball.getter_size()/2  < 0) || (ball.getterY()+ ball.getter_size()/2  > height) ) {
       ball.setter_spdY();
-      println("stuck2");
     }
-
   }
 
   void board() {
@@ -68,16 +65,16 @@ class Game {
   void moveracket() {
     if ( mousePressed == true ) {
       if (mouseX<width/2) {
-        println("1");
         left_player.setterY();
         left_player.draw_racket();
       }
-      if (mouseX<width/2) {
-        println("2");
+      if (mouseX>width/2) {
         right_player.setterY();
         right_player.draw_racket();
       }
     }
+    left_player.draw_racket();
+    right_player.draw_racket();
   }
 }
 
@@ -86,9 +83,9 @@ class Ball {
   float x, y ; 
   float spdX = 2 ;
   float spdY = 2 ;
-  float directionX = random(-1, 1);
-  float directionY = random(-1, 1);
-  int size = 80 ;
+  float directionX = 2 ;
+  float directionY = random(0, 1) ;
+  int size = 80 ; 
 
   Ball(float x_position, float y_position) {
     x = x_position ;
@@ -106,14 +103,12 @@ class Ball {
   float getterX() {
     return x ;
   }
-
   float getterY() {
     return y ;
   }
   int getter_size() {
     return size ;
   }
-
   void setter_spdX() {
     spdX *= -1 ;
   }
@@ -125,6 +120,9 @@ class Ball {
   }
   void setter_Y() {
     y = height/2 ;
+  }
+  void plus_speed() {
+    spdX += 0.2 ;
   }
 }
 
@@ -150,6 +148,9 @@ class Player {
   }
   float getterX() {
     return x ;
+  }
+  float getterY() {
+    return y ;
   }
   void setterY() {
     y = mouseY ;
