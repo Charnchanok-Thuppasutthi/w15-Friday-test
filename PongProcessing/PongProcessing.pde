@@ -27,11 +27,11 @@ class Game {
     ball.move();
     moveracket();
 
-    if ( (ball.getterX() <= left_player.getterX()+50 ) && (( ball.getterY()+ ball.getter_size()/2 > left_player.getterY()-50 ) && ( ball.getterY() - ball.getter_size()/2 < left_player.getterY()+50 ) )) {
+    if ( (ball.getterX() > left_player.getterX()-10 ) && (ball.getterX() <= left_player.getterX()+50 ) && (( ball.getterY()+ ball.getter_size()/2 > left_player.getterY()-50 ) && ( ball.getterY() - ball.getter_size()/2 < left_player.getterY()+50 ) )) {
       ball.setter_spdX();
     }
 
-    if ( (ball.getterX() >= right_player.getterX()-50) && (( ball.getterY()+ ball.getter_size()/2 > right_player.getterY()-50 ) && ( ball.getterY() - ball.getter_size()/2 < right_player.getterY()+50) )) {
+    if ( (ball.getterX() > left_player.getterX()+10 ) && (ball.getterX() >= right_player.getterX()-50) && (( ball.getterY()+ ball.getter_size()/2 > right_player.getterY()-50 ) && ( ball.getterY() - ball.getter_size()/2 < right_player.getterY()+50) )) {
       ball.setter_spdX();
     } 
 
@@ -75,11 +75,11 @@ class Game {
     if ( (ball.getterX()- ball.getter_size()/2 < -100) || (ball.getterX()+ ball.getter_size()/2  > width+100) ) {
       if ( (ball.getterX()<width/2 ) ) {
         right_player.setter_score();
-        serve_ball('1');
+        serve_ball('0');
       }
       if ( (ball.getterX() > width/2 ) ) {
         left_player.setter_score();
-        serve_ball('0');
+        serve_ball('1');
       }
     }
   }
@@ -141,9 +141,7 @@ class Ball {
     if ( player == '0') {
       spdX = 2 ;
       spdY = 2 ;
-      println('a');
-    }
-    else {
+    } else {
       spdX = -2;
       spdY = -2;
     }
@@ -170,7 +168,7 @@ class Player {
   void draw_racket() {
     fill(255);
 
-    rect(x, y, 50, 100);
+    rect(x, y, 25, 100);
   }
   void setter_score() {
     score += 1 ;
