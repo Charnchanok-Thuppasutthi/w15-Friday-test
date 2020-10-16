@@ -12,7 +12,8 @@ void draw() {
 
 class Game {
   Player right_player = new Player( width-25, height/2 );
-
+  Player wall1 = new Player(0+50, height/4 );
+  Player wall2 = new Player(0+200, height/1.5 );
   Ball ball = new Ball(width/2, height/2);
 
   void serve_ball(char side) {
@@ -26,19 +27,22 @@ class Game {
     ball.move();
     moveracket();
 
-    if ( (ball.getterX()- ball.getter_size()/2 < -10) || (ball.getterY()- ball.getter_size()/2 < -10) ) { 
+    if ( (ball.getterX()- ball.getter_size()/2 < -10) || (ball.getterY()- ball.getter_size()/2 < -10) ) { //bounce X left
       ball.setter_spdX();
     }    
-
-    if ( (ball.getterX()+ ball.getter_size()/2 > right_player.getterX()+10 ) && (ball.getterX()+ ball.getter_size()/2 >= right_player.getterX()-10) && (( ball.getterY()+ ball.getter_size()/2 > right_player.getterY()-50 ) && ( ball.getterY() - ball.getter_size()/2 < right_player.getterY()+50) )) {
-      ball.setter_spdX();
-    } 
-
-    get_score(); 
-
     if ( (ball.getterY()- ball.getter_size()/2  < 0) || (ball.getterY()+ ball.getter_size()/2  > height) ) { //bounch Y axis
       ball.setter_spdY();
     }
+    if ( (ball.getterX()+ ball.getter_size()/2 > right_player.getterX()+10 ) && (ball.getterX()+ ball.getter_size()/2 >= right_player.getterX()-10) && (( ball.getterY()+ ball.getter_size()/2 > right_player.getterY()-50 ) && ( ball.getterY() - ball.getter_size()/2 < right_player.getterY()+50) )) {
+      ball.setter_spdX();
+    } 
+    if ( (ball.getterX()- ball.getter_size()/2 < wall1.getterX()+10 ) && (ball.getterX()- ball.getter_size()/2 >= wall1.getterX()-10) && (( ball.getterY()+ ball.getter_size()/2 > wall1.getterY()-50 ) && ( ball.getterY() - ball.getter_size()/2 < wall1.getterY()+50) )) {
+      ball.setter_spdX();
+    } 
+    if ( (ball.getterX()- ball.getter_size()/2 < wall2.getterX()+10 ) && (ball.getterX()- ball.getter_size()/2 >= wall2.getterX()-10) && (( ball.getterY()+ ball.getter_size()/2 > wall2.getterY()-50 ) && ( ball.getterY() - ball.getter_size()/2 < wall2.getterY()+50) )) {
+      ball.setter_spdX();
+    } 
+    get_score();
   }
 
   void board() {    //draw board and score
@@ -55,6 +59,8 @@ class Game {
       right_player.setterY();
       right_player.draw_racket();
     }
+    wall1.draw_racket();
+    wall2.draw_racket();
     right_player.draw_racket();
   }
 
@@ -100,7 +106,7 @@ class Ball {
     if ( (spdX > 10) || (spdX <-10) ) {
       spdX *= -1 ;
     } else {
-      spdX *= -1.1 ;
+      spdX *= -1.2 ;
     }
   }
 
@@ -108,7 +114,7 @@ class Ball {
     if ( (spdY > 10) || (spdY <-10) ) {
       spdY *= -1 ;
     } else {
-      spdY *= -1.1 ;
+      spdY *= -1.2 ;
     }
   }
 
@@ -120,11 +126,11 @@ class Ball {
   }
   void reset_speed(char player) {
     if ( player == '0') {
-      spdX = 2 ;
-      spdY = 2 ;
+      spdX = 3 ;
+      spdY = 3 ;
     } else {
-      spdX = -2;
-      spdY = -2;
+      spdX = -3;
+      spdY = -3;
     }
     directionY = random(-1, 1) ;
   }
