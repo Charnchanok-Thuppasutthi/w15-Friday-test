@@ -11,7 +11,6 @@ void draw() {
 }
 
 class Game {
-  Player left_player = new Player( 25, height/2 );
   Player right_player = new Player( width-25, height/2 );
 
   Ball ball = new Ball(width/2, height/2);
@@ -27,11 +26,11 @@ class Game {
     ball.move();
     moveracket();
 
-    if ( (ball.getterX() > left_player.getterX()-10 ) && (ball.getterX() <= left_player.getterX()+50 ) && (( ball.getterY()+ ball.getter_size()/2 > left_player.getterY()-50 ) && ( ball.getterY() - ball.getter_size()/2 < left_player.getterY()+50 ) )) {
+    if ( (ball.getterX()- ball.getter_size()/2 < -10) || (ball.getterY()- ball.getter_size()/2 < -10) ) { 
       ball.setter_spdX();
-    }
+    }    
 
-    if ( (ball.getterX() > left_player.getterX()+10 ) && (ball.getterX() >= right_player.getterX()-50) && (( ball.getterY()+ ball.getter_size()/2 > right_player.getterY()-50 ) && ( ball.getterY() - ball.getter_size()/2 < right_player.getterY()+50) )) {
+    if ( (ball.getterX()+ ball.getter_size()/2 > right_player.getterX()+10 ) && (ball.getterX()+ ball.getter_size()/2 >= right_player.getterX()-10) && (( ball.getterY()+ ball.getter_size()/2 > right_player.getterY()-50 ) && ( ball.getterY() - ball.getter_size()/2 < right_player.getterY()+50) )) {
       ball.setter_spdX();
     } 
 
@@ -47,48 +46,30 @@ class Game {
     fill(255);
     rect( (width/2), height/2, 20, height);
     textSize(70);
-
-    text( left_player.getter_score(), width/10, height/5 );
-    text( right_player.getter_score(), width - (width/5), height/5 );
   }
 
   void moveracket() {    //input mouseX and Y to check that's left or right player and move racket to middle of mouseY clicked
     if ( mousePressed == true ) {    //clicked ?
-      if (mouseX<width/2) {          //left side
-        if ( (mouseY < 0-50 ) || (mouseY > height -50 ) ) {  //range of clicked
-        }
-        left_player.setterY();
-        left_player.draw_racket();
+      if ( (mouseY < 0-50 )||( mouseY>height-50 ) ) {  //range of click
       }
-      if (mouseX>width/2) {      //right side
-        if ( (mouseY < 0-50 )||( mouseY>height-50 ) ) {  //range of click
-        }
-        right_player.setterY();
-        right_player.draw_racket();
-      }
+      right_player.setterY();
+      right_player.draw_racket();
     }
-    left_player.draw_racket();
     right_player.draw_racket();
   }
 
   void get_score() {
     if ( (ball.getterX()- ball.getter_size()/2 < -100) || (ball.getterX()+ ball.getter_size()/2  > width+100) ) {
-      if ( (ball.getterX()<width/2 ) ) {
-        right_player.setter_score();
-        serve_ball('0');
-      }
       if ( (ball.getterX() > width/2 ) ) {
-        left_player.setter_score();
-        serve_ball('1');
+        serve_ball('0');
       }
     }
   }
 }
-
 class Ball {
   float x, y ; 
-  float spdX = 2 ;
-  float spdY = 2 ;
+  float spdX = 3 ;
+  float spdY = 3 ;
   float directionX = 2 ;
   float directionY = random(-1, 1) ;
   int size = 80 ; 
